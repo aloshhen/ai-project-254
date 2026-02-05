@@ -2,59 +2,39 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import {
-  Scissors,
-  Clock,
-  MapPin,
-  Phone,
-  Instagram,
-  Facebook,
-  Send,
-  CheckCircle,
-  ChevronRight,
-  Star,
-  Calendar,
-  User,
-  Mail,
-  MessageSquare,
-  Menu,
-  X,
-  Sparkles,
-  Flame,
-  Percent,
-  Gift,
-  Camera,
-  Image as ImageIcon
-} from 'lucide-react'
 
 // SafeIcon Component - converts kebab-case to PascalCase
-const iconMap = {
-  scissors: Scissors,
-  clock: Clock,
-  'map-pin': MapPin,
-  phone: Phone,
-  instagram: Instagram,
-  facebook: Facebook,
-  send: Send,
-  'check-circle': CheckCircle,
-  'chevron-right': ChevronRight,
-  star: Star,
-  calendar: Calendar,
-  user: User,
-  mail: Mail,
-  'message-square': MessageSquare,
-  menu: Menu,
-  x: X,
-  sparkles: Sparkles,
-  flame: Flame,
-  percent: Percent,
-  gift: Gift,
-  camera: Camera,
-  image: ImageIcon
-}
-
 const SafeIcon = ({ name, size = 24, className = '', color }) => {
-  const IconComponent = iconMap[name] || MessageSquare
+  const iconMap = {
+    scissors: 'Scissors',
+    clock: 'Clock',
+    'map-pin': 'MapPin',
+    phone: 'Phone',
+    instagram: 'Instagram',
+    facebook: 'Facebook',
+    send: 'Send',
+    'check-circle': 'CheckCircle',
+    'chevron-right': 'ChevronRight',
+    star: 'Star',
+    calendar: 'Calendar',
+    user: 'User',
+    mail: 'Mail',
+    'message-square': 'MessageSquare',
+    menu: 'Menu',
+    x: 'X',
+    sparkles: 'Sparkles',
+    flame: 'Flame',
+    percent: 'Percent',
+    gift: 'Gift',
+    camera: 'Camera',
+    image: 'Image'
+  }
+
+  const pascalName = iconMap[name] || name.charAt(0).toUpperCase() + name.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase())
+
+  import * as icons from 'lucide-react'
+  const IconComponent = icons[pascalName] || icons['HelpCircle']
+
   return <IconComponent size={size} className={className} color={color} />
 }
 
@@ -132,7 +112,14 @@ const CleanMap = ({ coordinates = [14.4378, 50.0755], zoom = 14 }) => {
     map.current.scrollZoom.disable()
 
     const el = document.createElement('div')
-    el.className = 'custom-map-marker'
+    el.style.cssText = `
+      width: 24px;
+      height: 24px;
+      background: #d97706;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    `
 
     new maplibregl.Marker({ element: el })
       .setLngLat(coordinates)
@@ -149,6 +136,11 @@ const CleanMap = ({ coordinates = [14.4378, 50.0755], zoom = 14 }) => {
 
   return (
     <div className="w-full h-full min-h-[300px] rounded-2xl overflow-hidden shadow-2xl border border-amber-600/20 relative">
+      <style>{`
+        .maplibregl-ctrl-attrib { display: none !important; }
+        .maplibregl-ctrl-logo { display: none !important; }
+        .maplibregl-compact { display: none !important; }
+      `}</style>
       <div ref={mapContainer} className="absolute inset-0" />
     </div>
   )
@@ -182,7 +174,7 @@ const CountdownTimer = ({ targetDate }) => {
   const TimeUnit = ({ value, label }) => (
     <div className="flex flex-col items-center">
       <div className="bg-gradient-to-b from-amber-600 to-amber-800 w-14 h-14 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center shadow-lg border border-amber-500/50">
-        <span className="text-2xl sm:text-3xl font-bold text-white font-oswald">{String(value).padStart(2, '0')}</span>
+        <span className="text-2xl sm:text-3xl font-bold text-white font-mono">{String(value).padStart(2, '0')}</span>
       </div>
       <span className="text-xs sm:text-sm text-amber-500/70 mt-2 uppercase tracking-wider">{label}</span>
     </div>
@@ -248,7 +240,7 @@ const PromoSlider = () => {
             <SafeIcon name={promos[currentSlide].icon} size={16} className="text-white" />
             <span className="text-sm font-bold text-white uppercase tracking-wider">Акция</span>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white font-playfair mb-3">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif mb-3">
             {promos[currentSlide].title}
           </h3>
           <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
@@ -277,32 +269,42 @@ const GallerySection = () => {
   const galleryImages = [
     {
       id: 1,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770321570.jpg?",
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-5096.jpg?",
       alt: "BAZA Barbershop - атмосфера и стиль",
       span: "col-span-2 row-span-2"
     },
     {
       id: 2,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-8063.jpg?",
+      alt: "Работа мастера BAZA"
+    },
+    {
+      id: 3,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323851-2855.jpg?",
+      alt: "Барбершоп BAZA - детали интерьера"
+    },
+    {
+      id: 4,
       src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80",
       alt: "Классическая стрижка"
     },
     {
-      id: 3,
+      id: 5,
       src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
       alt: "Барбер в работе"
     },
     {
-      id: 4,
+      id: 6,
       src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80",
       alt: "Интерьер барбершопа"
     },
     {
-      id: 5,
+      id: 7,
       src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80",
       alt: "Уход за бородой"
     },
     {
-      id: 6,
+      id: 8,
       src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80",
       alt: "Бритье опасной бритвой"
     }
@@ -321,8 +323,8 @@ const GallerySection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Наши работы</span>
-          <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-4">
+          <span className="text-amber-500 text-sm font-mono uppercase tracking-[0.3em]">Наши работы</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-white font-serif mt-3 mb-4">
             <span className="text-amber-500">Галерея</span> BAZA
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mb-4" />
@@ -355,7 +357,7 @@ const GallerySection = () => {
               <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                 <div className="flex items-center gap-2">
                   <SafeIcon name="camera" size={16} className="text-amber-500" />
-                  <span className="text-white text-sm font-oswald">{image.alt}</span>
+                  <span className="text-white text-sm font-mono">{image.alt}</span>
                 </div>
               </div>
               {index === 0 && (
@@ -395,7 +397,7 @@ const GallerySection = () => {
                   alt={selectedImage.alt}
                   className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                 />
-                <p className="text-white text-center mt-4 font-oswald text-lg">{selectedImage.alt}</p>
+                <p className="text-white text-center mt-4 font-mono text-lg">{selectedImage.alt}</p>
               </motion.div>
             </motion.div>
           )}
@@ -425,12 +427,12 @@ const ServiceCard = ({ title, price, description, duration, icon, delay }) => {
           <SafeIcon name={icon} size={28} className="text-amber-500" />
         </div>
         <div className="text-right">
-          <span className="text-2xl sm:text-3xl font-bold text-amber-500 font-oswald">{price}</span>
+          <span className="text-2xl sm:text-3xl font-bold text-amber-500 font-mono">{price}</span>
           <span className="text-amber-500/60 text-sm"> Kč</span>
         </div>
       </div>
 
-      <h3 className="text-xl font-bold text-white font-playfair mb-2 group-hover:text-amber-400 transition-colors">
+      <h3 className="text-xl font-bold text-white font-serif mb-2 group-hover:text-amber-400 transition-colors">
         {title}
       </h3>
       <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -448,7 +450,7 @@ const ServiceCard = ({ title, price, description, duration, icon, delay }) => {
 // Booking Form Component
 const BookingForm = () => {
   const { isSubmitting, isSuccess, isError, errorMessage, handleSubmit, resetForm } = useFormHandler()
-  const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY' // Replace with your Web3Forms Access Key
+  const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY' // Replace with your Web3Forms Access Key from https://web3forms.com
 
   const services = [
     { value: 'haircut', label: 'Мужская стрижка' },
@@ -479,7 +481,7 @@ const BookingForm = () => {
                   name="name"
                   placeholder="Ваше имя"
                   required
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-oswald"
+                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-mono"
                 />
               </div>
               <div className="relative">
@@ -489,7 +491,7 @@ const BookingForm = () => {
                   name="phone"
                   placeholder="Телефон"
                   required
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-oswald"
+                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-mono"
                 />
               </div>
             </div>
@@ -500,7 +502,7 @@ const BookingForm = () => {
                 type="email"
                 name="email"
                 placeholder="Email (необязательно)"
-                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-oswald"
+                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-mono"
               />
             </div>
 
@@ -509,7 +511,7 @@ const BookingForm = () => {
               <select
                 name="service"
                 required
-                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white focus:outline-none focus:border-amber-600/50 transition-colors font-oswald appearance-none cursor-pointer"
+                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white focus:outline-none focus:border-amber-600/50 transition-colors font-mono appearance-none cursor-pointer"
               >
                 <option value="" className="bg-neutral-900">Выберите услугу</option>
                 {services.map(s => (
@@ -525,7 +527,7 @@ const BookingForm = () => {
                   type="date"
                   name="date"
                   required
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-oswald"
+                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-mono"
                 />
               </div>
               <div className="relative">
@@ -533,7 +535,7 @@ const BookingForm = () => {
                 <select
                   name="time"
                   required
-                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white focus:outline-none focus:border-amber-600/50 transition-colors font-oswald appearance-none cursor-pointer"
+                  className="w-full pl-12 pr-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white focus:outline-none focus:border-amber-600/50 transition-colors font-mono appearance-none cursor-pointer"
                 >
                   <option value="" className="bg-neutral-900">Время</option>
                   <option value="10:00" className="bg-neutral-900">10:00</option>
@@ -555,7 +557,7 @@ const BookingForm = () => {
                 name="message"
                 placeholder="Дополнительные пожелания..."
                 rows="3"
-                className="w-full px-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-oswald resize-none"
+                className="w-full px-4 py-4 bg-white/5 border border-amber-600/20 rounded-xl text-white placeholder-amber-500/30 focus:outline-none focus:border-amber-600/50 transition-colors font-mono resize-none"
               ></textarea>
             </div>
 
@@ -568,7 +570,7 @@ const BookingForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:from-neutral-700 disabled:to-neutral-800 disabled:cursor-not-allowed text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] disabled:transform-none flex items-center justify-center gap-3 shadow-lg shadow-amber-600/20 font-oswald uppercase tracking-wider"
+              className="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:from-neutral-700 disabled:to-neutral-800 disabled:cursor-not-allowed text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-[1.02] disabled:transform-none flex items-center justify-center gap-3 shadow-lg shadow-amber-600/20 font-mono uppercase tracking-wider"
             >
               {isSubmitting ? (
                 <>
@@ -595,7 +597,7 @@ const BookingForm = () => {
             <div className="bg-gradient-to-br from-amber-600/20 to-amber-800/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-600/30">
               <SafeIcon name="check-circle" size={48} className="text-amber-500" />
             </div>
-            <h3 className="text-3xl font-bold text-white mb-4 font-playfair">
+            <h3 className="text-3xl font-bold text-white mb-4 font-serif">
               Заявка отправлена!
             </h3>
             <p className="text-gray-400 mb-8 max-w-md mx-auto">
@@ -603,7 +605,7 @@ const BookingForm = () => {
             </p>
             <button
               onClick={resetForm}
-              className="text-amber-500 hover:text-amber-400 font-semibold transition-colors font-oswald uppercase tracking-wider"
+              className="text-amber-500 hover:text-amber-400 font-semibold transition-colors font-mono uppercase tracking-wider"
             >
               Отправить ещё заявку
             </button>
@@ -642,7 +644,7 @@ function App() {
   const isFeaturesInView = useInView(featuresRef, { once: true, margin: "-100px" })
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-950 via-black to-neutral-950 overflow-x-hidden mobile-safe-container">
+    <div className="min-h-screen bg-gradient-to-b from-neutral-950 via-black to-neutral-950 overflow-x-hidden">
       {/* HEADER */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -657,8 +659,8 @@ function App() {
               <SafeIcon name="scissors" size={24} className="text-white" />
             </div>
             <div>
-              <span className="text-2xl font-black text-white font-playfair tracking-tight">BAZA</span>
-              <span className="block text-[10px] text-amber-500 uppercase tracking-[0.3em] font-oswald">Barbershop</span>
+              <span className="text-2xl font-black text-white font-serif tracking-tight">BAZA</span>
+              <span className="block text-[10px] text-amber-500 uppercase tracking-[0.3em] font-mono">Barbershop</span>
             </div>
           </a>
 
@@ -669,7 +671,7 @@ function App() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(ids[i])}
-                  className="text-gray-300 hover:text-amber-500 transition-colors font-oswald uppercase tracking-wider text-sm"
+                  className="text-gray-300 hover:text-amber-500 transition-colors font-mono uppercase tracking-wider text-sm"
                 >
                   {item}
                 </button>
@@ -701,7 +703,7 @@ function App() {
                     <button
                       key={item}
                       onClick={() => scrollToSection(ids[i])}
-                      className="block w-full text-left text-lg text-gray-300 hover:text-amber-500 transition-colors font-oswald uppercase tracking-wider py-2"
+                      className="block w-full text-left text-lg text-gray-300 hover:text-amber-500 transition-colors font-mono uppercase tracking-wider py-2"
                     >
                       {item}
                     </button>
@@ -730,14 +732,14 @@ function App() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-600/10 border border-amber-600/30 mb-6">
               <SafeIcon name="flame" size={16} className="text-amber-500" />
-              <span className="text-amber-500 text-sm font-oswald uppercase tracking-wider">Основан в 2019</span>
+              <span className="text-amber-500 text-sm font-mono uppercase tracking-wider">Основан в 2019</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-playfair mb-6 tracking-tight text-shadow-gold">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-serif mb-6 tracking-tight">
               BAZA <span className="text-amber-500">Barbershop</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl md:text-3xl text-amber-500/80 mb-4 font-oswald uppercase tracking-wider">
+            <p className="text-xl sm:text-2xl md:text-3xl text-amber-500/80 mb-4 font-mono uppercase tracking-wider">
               Винтажная классика в сердце Праги
             </p>
 
@@ -749,14 +751,14 @@ function App() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => scrollToSection('booking')}
-                className="group bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-600/25 font-oswald uppercase tracking-wider"
+                className="group bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg shadow-amber-600/25 font-mono uppercase tracking-wider"
               >
                 Записаться
                 <SafeIcon name="chevron-right" size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 onClick={() => scrollToSection('services')}
-                className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all backdrop-blur-sm border border-white/10 hover:border-amber-600/30 font-oswald uppercase tracking-wider"
+                className="bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-xl text-lg font-bold transition-all backdrop-blur-sm border border-white/10 hover:border-amber-600/30 font-mono uppercase tracking-wider"
               >
                 Наши услуги
               </button>
@@ -777,8 +779,8 @@ function App() {
               { value: '4.9', label: 'Рейтинг' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl sm:text-4xl font-black text-amber-500 font-oswald">{stat.value}</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wider font-oswald mt-1">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl font-black text-amber-500 font-mono">{stat.value}</div>
+                <div className="text-sm text-gray-500 uppercase tracking-wider font-mono mt-1">{stat.label}</div>
               </div>
             ))}
           </motion.div>
@@ -795,8 +797,8 @@ function App() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Специальные предложения</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-4">
+            <span className="text-amber-500 text-sm font-mono uppercase tracking-[0.3em]">Специальные предложения</span>
+            <h2 className="text-4xl sm:text-5xl font-black text-white font-serif mt-3 mb-4">
               Акции недели
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
@@ -811,7 +813,7 @@ function App() {
                   <SafeIcon name="percent" size={24} className="text-red-500" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white font-playfair">Скидка 20%</h3>
+                  <h3 className="text-xl font-bold text-white font-serif">Скидка 20%</h3>
                   <p className="text-gray-400 text-sm">До конца недели</p>
                 </div>
               </div>
@@ -825,7 +827,7 @@ function App() {
 
               <button
                 onClick={() => scrollToSection('booking')}
-                className="w-full mt-6 bg-gradient-to-r from-red-700 to-red-900 hover:from-red-800 hover:to-red-950 text-white py-4 rounded-xl font-bold transition-all font-oswald uppercase tracking-wider"
+                className="w-full mt-6 bg-gradient-to-r from-red-700 to-red-900 hover:from-red-800 hover:to-red-950 text-white py-4 rounded-xl font-bold transition-colors font-mono uppercase tracking-wider"
               >
                 Получить скидку
               </button>
@@ -844,8 +846,8 @@ function App() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Прайс-лист</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-4">
+            <span className="text-amber-500 text-sm font-mono uppercase tracking-[0.3em]">Прайс-лист</span>
+            <h2 className="text-4xl sm:text-5xl font-black text-white font-serif mt-3 mb-4">
               Наши <span className="text-amber-500">услуги</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mb-4" />
@@ -920,8 +922,8 @@ function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Онлайн-запись</span>
-              <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-6">
+              <span className="text-amber-500 text-sm font-mono uppercase tracking-[0.3em]">Онлайн-запись</span>
+              <h2 className="text-4xl sm:text-5xl font-black text-white font-serif mt-3 mb-6">
                 Забронируйте <span className="text-amber-500">визит</span>
               </h2>
               <p className="text-gray-400 mb-8 leading-relaxed">
@@ -936,7 +938,7 @@ function App() {
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">Телефон</div>
-                    <a href="tel:+420777123456" className="text-white hover:text-amber-500 transition-colors font-oswald text-lg">+420 777 123 456</a>
+                    <a href="tel:+420777123456" className="text-white hover:text-amber-500 transition-colors font-mono text-lg">+420 777 123 456</a>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -945,7 +947,7 @@ function App() {
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">Часы работы</div>
-                    <div className="text-white font-oswald text-lg">Пн-Сб: 10:00 - 20:00</div>
+                    <div className="text-white font-mono text-lg">Пн-Сб: 10:00 - 20:00</div>
                   </div>
                 </div>
               </div>
@@ -974,8 +976,8 @@ function App() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Как нас найти</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-4">
+            <span className="text-amber-500 text-sm font-mono uppercase tracking-[0.3em]">Как нас найти</span>
+            <h2 className="text-4xl sm:text-5xl font-black text-white font-serif mt-3 mb-4">
               Контакты
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
@@ -989,7 +991,7 @@ function App() {
                     <SafeIcon name="map-pin" size={20} className="text-amber-500" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white font-playfair mb-2">Адрес</h3>
+                    <h3 className="text-lg font-bold text-white font-serif mb-2">Адрес</h3>
                     <p className="text-gray-400 leading-relaxed">
                       Vinohradská 123<br />
                       120 00 Praha 2, Vinohrady<br />
@@ -1006,7 +1008,7 @@ function App() {
                     <SafeIcon name="clock" size={20} className="text-amber-500" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white font-playfair mb-3">Часы работы</h3>
+                    <h3 className="text-lg font-bold text-white font-serif mb-3">Часы работы</h3>
                     <div className="grid grid-cols-[1fr_auto] gap-x-8 gap-y-2 text-gray-400">
                       <span>Понедельник — Пятница</span>
                       <span className="text-white text-right">10:00 — 20:00</span>
@@ -1025,7 +1027,7 @@ function App() {
                     <SafeIcon name="phone" size={20} className="text-amber-500" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white font-playfair mb-2">Связаться</h3>
+                    <h3 className="text-lg font-bold text-white font-serif mb-2">Связаться</h3>
                     <div className="space-y-2">
                       <a href="tel:+420777123456" className="block text-gray-400 hover:text-amber-500 transition-colors">
                         +420 777 123 456
@@ -1055,7 +1057,7 @@ function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-amber-600/10 py-12 px-4 telegram-safe-bottom">
+      <footer className="border-t border-amber-600/10 py-12 px-4 pb-24">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
@@ -1063,18 +1065,18 @@ function App() {
                 <SafeIcon name="scissors" size={20} className="text-white" />
               </div>
               <div>
-                <span className="text-xl font-black text-white font-playfair">BAZA</span>
-                <span className="block text-[8px] text-amber-500 uppercase tracking-[0.3em] font-oswald">Barbershop</span>
+                <span className="text-xl font-black text-white font-serif">BAZA</span>
+                <span className="block text-[8px] text-amber-500 uppercase tracking-[0.3em] font-mono">Barbershop</span>
               </div>
             </div>
 
-            <div className="text-gray-500 text-sm text-center md:text-left font-oswald">
+            <div className="text-gray-500 text-sm text-center md:text-left font-mono">
               © 2024 BAZA Barbershop. Все права защищены.
             </div>
 
             <button
               onClick={() => scrollToSection('booking')}
-              className="bg-amber-600/10 hover:bg-amber-600/20 text-amber-500 px-6 py-3 rounded-xl font-oswald uppercase tracking-wider text-sm transition-colors border border-amber-600/30"
+              className="bg-amber-600/10 hover:bg-amber-600/20 text-amber-500 px-6 py-3 rounded-xl font-mono uppercase tracking-wider text-sm transition-colors border border-amber-600/30"
             >
               Записаться
             </button>
