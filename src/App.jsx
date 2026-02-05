@@ -269,49 +269,49 @@ const GallerySection = () => {
   const galleryImages = [
     {
       id: 1,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-5096.jpg?",
-      alt: "BAZA Barbershop - атмосфера и стиль",
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326729-9741.jpg?",
+      alt: "BAZA Barbershop - стиль и атмосфера",
       span: "col-span-2 row-span-2"
     },
     {
       id: 2,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326730-3816.jpg?",
+      alt: "Работа мастера BAZA - детали стрижки"
+    },
+    {
+      id: 3,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326731-1334.jpg?",
+      alt: "Барбершоп BAZA - интерьер и атмосфера"
+    },
+    {
+      id: 4,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-5096.jpg?",
+      alt: "BAZA Barbershop - атмосфера и стиль"
+    },
+    {
+      id: 5,
       src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-8063.jpg?",
       alt: "Работа мастера BAZA"
     },
     {
-      id: 3,
+      id: 6,
       src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323851-2855.jpg?",
       alt: "Барбершоп BAZA - детали интерьера"
     },
     {
-      id: 4,
+      id: 7,
       src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325710-4998.jpg?",
       alt: "Новая работа мастера BAZA"
     },
     {
-      id: 5,
+      id: 8,
       src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-1843.jpg?",
       alt: "Стильная стрижка в BAZA"
     },
     {
-      id: 6,
+      id: 9,
       src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-3969.jpg?",
       alt: "Атмосфера барбершопа BAZA"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80",
-      alt: "Классическая стрижка"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
-      alt: "Барбер в работе"
-    },
-    {
-      id: 9,
-      src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80",
-      alt: "Интерьер барбершопа"
     }
   ]
 
@@ -370,7 +370,7 @@ const GallerySection = () => {
                   <span className="text-white text-xs font-bold uppercase tracking-wider">Featured</span>
                 </div>
               )}
-              {(index === 3 || index === 4 || index === 5) && (
+              {(index >= 1 && index <= 3) && (
                 <div className="absolute top-4 right-4 bg-green-600 px-3 py-1 rounded-full">
                   <span className="text-white text-xs font-bold uppercase tracking-wider">New</span>
                 </div>
