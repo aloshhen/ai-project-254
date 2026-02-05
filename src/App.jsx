@@ -22,7 +22,9 @@ import {
   Sparkles,
   Flame,
   Percent,
-  Gift
+  Gift,
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react'
 
 // SafeIcon Component - converts kebab-case to PascalCase
@@ -47,6 +49,8 @@ const iconMap = {
   flame: Flame,
   percent: Percent,
   gift: Gift,
+  camera: Camera,
+  image: ImageIcon
 }
 
 const SafeIcon = ({ name, size = 24, className = '', color }) => {
@@ -263,6 +267,141 @@ const PromoSlider = () => {
         ))}
       </div>
     </div>
+  )
+}
+
+// Gallery Component
+const GallerySection = () => {
+  const [selectedImage, setSelectedImage] = useState(null)
+
+  const galleryImages = [
+    {
+      id: 1,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770321570.jpg?",
+      alt: "BAZA Barbershop - атмосфера и стиль",
+      span: "col-span-2 row-span-2"
+    },
+    {
+      id: 2,
+      src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80",
+      alt: "Классическая стрижка"
+    },
+    {
+      id: 3,
+      src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
+      alt: "Барбер в работе"
+    },
+    {
+      id: 4,
+      src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80",
+      alt: "Интерьер барбершопа"
+    },
+    {
+      id: 5,
+      src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80",
+      alt: "Уход за бородой"
+    },
+    {
+      id: 6,
+      src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80",
+      alt: "Бритье опасной бритвой"
+    }
+  ]
+
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
+  return (
+    <section id="gallery" className="py-20 px-4 bg-gradient-to-b from-transparent via-neutral-900/30 to-transparent">
+      <div className="container mx-auto max-w-6xl">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <span className="text-amber-500 text-sm font-oswald uppercase tracking-[0.3em]">Наши работы</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-white font-playfair mt-3 mb-4">
+            <span className="text-amber-500">Галерея</span> BAZA
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mb-4" />
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Атмосфера винтажного барбершопа. Каждая фотография рассказывает историю стиля и мастерства.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]"
+        >
+          {galleryImages.map((image, index) => (
+            <motion.div
+              key={image.id}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5, delay: 0.1 * index }}
+              className={`relative group overflow-hidden rounded-xl cursor-pointer ${image.span || ''} ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
+              onClick={() => setSelectedImage(image)}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <div className="flex items-center gap-2">
+                  <SafeIcon name="camera" size={16} className="text-amber-500" />
+                  <span className="text-white text-sm font-oswald">{image.alt}</span>
+                </div>
+              </div>
+              {index === 0 && (
+                <div className="absolute top-4 left-4 bg-amber-600 px-3 py-1 rounded-full">
+                  <span className="text-white text-xs font-bold uppercase tracking-wider">Featured</span>
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Lightbox */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+              onClick={() => setSelectedImage(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative max-w-5xl w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-12 right-0 text-white hover:text-amber-500 transition-colors"
+                >
+                  <SafeIcon name="x" size={32} />
+                </button>
+                <img
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                />
+                <p className="text-white text-center mt-4 font-oswald text-lg">{selectedImage.alt}</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
   )
 }
 
@@ -504,7 +643,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-950 via-black to-neutral-950 overflow-x-hidden mobile-safe-container">
-      {/* HEADER - Fixed alignment and smooth animation */}
+      {/* HEADER */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled
@@ -524,8 +663,8 @@ function App() {
           </a>
 
           <div className="hidden md:flex items-center gap-8">
-            {['Акции', 'Услуги', 'Бронирование', 'Контакты'].map((item, i) => {
-              const ids = ['promo', 'services', 'booking', 'contacts']
+            {['Акции', 'Услуги', 'Галерея', 'Бронирование', 'Контакты'].map((item, i) => {
+              const ids = ['promo', 'services', 'gallery', 'booking', 'contacts']
               return (
                 <button
                   key={item}
@@ -556,8 +695,8 @@ function App() {
               className="md:hidden bg-black/98 border-t border-amber-600/20 overflow-hidden"
             >
               <div className="px-4 py-6 space-y-4">
-                {['Акции', 'Услуги', 'Бронирование', 'Контакты'].map((item, i) => {
-                  const ids = ['promo', 'services', 'booking', 'contacts']
+                {['Акции', 'Услуги', 'Галерея', 'Бронирование', 'Контакты'].map((item, i) => {
+                  const ids = ['promo', 'services', 'gallery', 'booking', 'contacts']
                   return (
                     <button
                       key={item}
@@ -767,6 +906,9 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* GALLERY SECTION */}
+      <GallerySection />
 
       {/* BOOKING SECTION */}
       <section id="booking" className="py-20 px-4">
