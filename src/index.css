@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+  overflow-x: hidden;
+}
+
+.font-vintage {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-display {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Vintage decorative elements */
+.vintage-border {
+  position: relative;
+}
+
+.vintage-border::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid #D4AF37;
+  pointer-events: none;
+}
+
+.vintage-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(212, 175, 55, 0.03) 10px,
+    rgba(212, 175, 55, 0.03) 20px
+  );
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8941d;
+}
+
+/* Telegram safe area */
+.telegram-safe-bottom {
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+.mobile-safe-container {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Hide map controls */
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.maplibregl-ctrl-logo {
+  display: none !important;
+}
+
+.maplibregl-compact {
+  display: none !important;
+}
