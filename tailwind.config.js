@@ -3,13 +3,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'vintage': ['Playfair Display', 'serif'],
-        'display': ['Oswald', 'sans-serif'],
+        'playfair': ['"Playfair Display"', 'serif'],
+        'oswald': ['Oswald', 'sans-serif'],
       },
-      colors: {
-        'burgundy': '#722F37',
-        'gold': '#D4AF37',
-      }
     },
   },
   plugins: [],
