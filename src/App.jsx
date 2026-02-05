@@ -269,19 +269,19 @@ const GallerySection = () => {
   const galleryImages = [
     {
       id: 1,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327376-7708.jpg?",
-      alt: "BAZA Barbershop - работа мастера",
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770329701-5900.jpg?",
+      alt: "BAZA Barbershop - интерьер и атмосфера",
       span: "col-span-2 row-span-2"
     },
     {
       id: 2,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327377-6711.jpg?",
-      alt: "BAZA Barbershop - стиль и атмосфера"
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770329702-5602.jpg?",
+      alt: "BAZA Barbershop - работа мастера"
     },
     {
       id: 3,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327378-2135.jpg?",
-      alt: "BAZA Barbershop - детали работы"
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770329702-9063.jpg?",
+      alt: "BAZA Barbershop - детали и стиль"
     }
   ]
 
@@ -693,9 +693,20 @@ function App() {
         </AnimatePresence>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION - UPDATED with user photo background */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
+          <img
+            src="https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770329701-5900.jpg?"
+            alt="BAZA Barbershop Interior"
+            className="w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-black/70 to-neutral-950" />
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(180,83,9,0.15)_0%,_transparent_70%)]" />
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-900/10 rounded-full blur-3xl" />
@@ -707,20 +718,20 @@ function App() {
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-600/10 border border-amber-600/30 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-600/10 border border-amber-600/30 mb-6 backdrop-blur-sm">
               <SafeIcon name="flame" size={16} className="text-amber-500" />
               <span className="text-amber-500 text-sm font-mono uppercase tracking-wider">Основан в 2019</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-serif mb-6 tracking-tight">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white font-serif mb-6 tracking-tight drop-shadow-2xl">
               BAZA <span className="text-amber-500">Barbershop</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl md:text-3xl text-amber-500/80 mb-4 font-mono uppercase tracking-wider">
+            <p className="text-xl sm:text-2xl md:text-3xl text-amber-500/90 mb-4 font-mono uppercase tracking-wider drop-shadow-lg">
               Винтажная классика в сердце Праги
             </p>
 
-            <p className="text-base sm:text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
               Традиции мужского груминга, переданные через поколения.
               Аутентичная атмосфера, мастера с опытом и неповторимый стиль.
             </p>
@@ -756,7 +767,7 @@ function App() {
             ].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-3xl sm:text-4xl font-black text-amber-500 font-mono">{stat.value}</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wider font-mono mt-1">{stat.label}</div>
+                <div className="text-sm text-gray-400 uppercase tracking-wider font-mono mt-1">{stat.label}</div>
               </div>
             ))}
           </motion.div>
