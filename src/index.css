@@ -2,53 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'maplibre-gl/dist/maplibre-gl.css';
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-* {
-  box-sizing: border-box;
+  body {
+    font-family: 'Oswald', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer components {
+  .mobile-safe-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .telegram-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 80px);
+  }
 }
 
-body {
-  font-family: 'Oswald', sans-serif;
-  overflow-x: hidden;
-}
+@layer utilities {
+  .text-shadow-gold {
+    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
+  }
 
-.font-vintage {
-  font-family: 'Playfair Display', serif;
-}
+  .vintage-border {
+    position: relative;
+  }
 
-.font-display {
-  font-family: 'Oswald', sans-serif;
-}
+  .vintage-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    pointer-events: none;
+  }
 
-/* Vintage decorative elements */
-.vintage-border {
-  position: relative;
-}
-
-.vintage-border::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 2px solid #D4AF37;
-  pointer-events: none;
-}
-
-.vintage-pattern {
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    rgba(212, 175, 55, 0.03) 10px,
-    rgba(212, 175, 55, 0.03) 20px
-  );
+  .vintage-border::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    pointer-events: none;
+  }
 }
 
 /* Custom scrollbar */
@@ -57,29 +58,19 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #0f0f0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4AF37;
+  background: #4a0404;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8941d;
+  background: #6b1717;
 }
 
-/* Telegram safe area */
-.telegram-safe-bottom {
-  padding-bottom: max(24px, env(safe-area-inset-bottom));
-}
-
-.mobile-safe-container {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-/* Hide map controls */
+/* MapLibre custom styles */
 .maplibregl-ctrl-attrib {
   display: none !important;
 }
@@ -90,4 +81,14 @@ body {
 
 .maplibregl-compact {
   display: none !important;
+}
+
+.custom-map-marker {
+  width: 24px;
+  height: 24px;
+  background: #7c2d12;
+  border-radius: 50%;
+  border: 3px solid #d4af37;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
 }
