@@ -504,9 +504,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-950 via-black to-neutral-950 overflow-x-hidden mobile-safe-container">
-      {/* HEADER */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/95 backdrop-blur-md border-b border-amber-600/20' : 'bg-transparent'}`}>
-        <nav className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+      {/* HEADER - Fixed alignment and smooth animation */}
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-black/95 backdrop-blur-md shadow-lg shadow-black/50'
+            : 'bg-transparent'
+        }`}
+      >
+        <nav className="container mx-auto max-w-6xl px-4 md:px-6 py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
             <div className="bg-gradient-to-br from-amber-600 to-amber-800 w-12 h-12 rounded-lg flex items-center justify-center shadow-lg shadow-amber-600/20 group-hover:shadow-amber-600/40 transition-shadow">
               <SafeIcon name="scissors" size={24} className="text-white" />
@@ -547,7 +553,7 @@ function App() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-black/98 border-b border-amber-600/20 overflow-hidden"
+              className="md:hidden bg-black/98 border-t border-amber-600/20 overflow-hidden"
             >
               <div className="px-4 py-6 space-y-4">
                 {['Акции', 'Услуги', 'Бронирование', 'Контакты'].map((item, i) => {
@@ -577,7 +583,7 @@ function App() {
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-900/10 rounded-full blur-3xl" />
         </div>
 
-        <div ref={heroRef} className="relative z-10 container mx-auto text-center max-w-5xl">
+        <div ref={heroRef} className="relative z-10 container mx-auto max-w-6xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -857,21 +863,15 @@ function App() {
                   <div className="bg-amber-600/10 w-12 h-12 rounded-xl flex items-center justify-center border border-amber-600/20 flex-shrink-0">
                     <SafeIcon name="clock" size={20} className="text-amber-500" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white font-playfair mb-2">Часы работы</h3>
-                    <div className="space-y-2 text-gray-400">
-                      <div className="flex justify-between">
-                        <span>Понедельник — Пятница</span>
-                        <span className="text-white">10:00 — 20:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Суббота</span>
-                        <span className="text-white">10:00 — 18:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Воскресенье</span>
-                        <span className="text-red-400">Выходной</span>
-                      </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-white font-playfair mb-3">Часы работы</h3>
+                    <div className="grid grid-cols-[1fr_auto] gap-x-8 gap-y-2 text-gray-400">
+                      <span>Понедельник — Пятница</span>
+                      <span className="text-white text-right">10:00 — 20:00</span>
+                      <span>Суббота</span>
+                      <span className="text-white text-right">10:00 — 18:00</span>
+                      <span>Воскресенье</span>
+                      <span className="text-red-400 text-right">Выходной</span>
                     </div>
                   </div>
                 </div>
