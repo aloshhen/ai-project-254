@@ -2,93 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-  body {
-    font-family: 'Oswald', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-@layer components {
-  .mobile-safe-container {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile optimizations */
+@supports (padding: max(0px)) {
   .telegram-safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 80px);
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
-}
-
-@layer utilities {
-  .text-shadow-gold {
-    text-shadow: 0 2px 20px rgba(212, 175, 55, 0.3);
-  }
-
-  .vintage-border {
-    position: relative;
-  }
-
-  .vintage-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    pointer-events: none;
-  }
-
-  .vintage-border::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    pointer-events: none;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f0f0f;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #4a0404;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #6b1717;
 }
 
 /* MapLibre custom styles */
-.maplibregl-ctrl-attrib {
-  display: none !important;
-}
-
-.maplibregl-ctrl-logo {
-  display: none !important;
-}
-
-.maplibregl-compact {
-  display: none !important;
+.maplibregl-canvas {
+  outline: none;
 }
 
 .custom-map-marker {
-  width: 24px;
-  height: 24px;
-  background: #7c2d12;
-  border-radius: 50%;
-  border: 3px solid #d4af37;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.custom-map-marker:hover {
+  transform: scale(1.1);
 }
