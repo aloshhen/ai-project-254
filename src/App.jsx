@@ -262,56 +262,26 @@ const PromoSlider = () => {
   )
 }
 
-// UPDATED Gallery Component with new user photos
+// UPDATED Gallery Component with ONLY the 3 user provided photos
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState(null)
 
   const galleryImages = [
     {
       id: 1,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326729-9741.jpg?",
-      alt: "BAZA Barbershop - стиль и атмосфера",
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327376-7708.jpg?",
+      alt: "BAZA Barbershop - работа мастера",
       span: "col-span-2 row-span-2"
     },
     {
       id: 2,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326730-3816.jpg?",
-      alt: "Работа мастера BAZA - детали стрижки"
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327377-6711.jpg?",
+      alt: "BAZA Barbershop - стиль и атмосфера"
     },
     {
       id: 3,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770326731-1334.jpg?",
-      alt: "Барбершоп BAZA - интерьер и атмосфера"
-    },
-    {
-      id: 4,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-5096.jpg?",
-      alt: "BAZA Barbershop - атмосфера и стиль"
-    },
-    {
-      id: 5,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323850-8063.jpg?",
-      alt: "Работа мастера BAZA"
-    },
-    {
-      id: 6,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770323851-2855.jpg?",
-      alt: "Барбершоп BAZA - детали интерьера"
-    },
-    {
-      id: 7,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325710-4998.jpg?",
-      alt: "Новая работа мастера BAZA"
-    },
-    {
-      id: 8,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-1843.jpg?",
-      alt: "Стильная стрижка в BAZA"
-    },
-    {
-      id: 9,
-      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-3969.jpg?",
-      alt: "Атмосфера барбершопа BAZA"
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770327378-2135.jpg?",
+      alt: "BAZA Barbershop - детали работы"
     }
   ]
 
@@ -342,7 +312,7 @@ const GallerySection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px]"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px] md:auto-rows-[250px]"
         >
           {galleryImages.map((image, index) => (
             <motion.div
@@ -370,7 +340,7 @@ const GallerySection = () => {
                   <span className="text-white text-xs font-bold uppercase tracking-wider">Featured</span>
                 </div>
               )}
-              {(index >= 1 && index <= 3) && (
+              {index > 0 && (
                 <div className="absolute top-4 right-4 bg-green-600 px-3 py-1 rounded-full">
                   <span className="text-white text-xs font-bold uppercase tracking-wider">New</span>
                 </div>
@@ -915,7 +885,7 @@ function App() {
         </div>
       </section>
 
-      {/* GALLERY SECTION - Updated with new photos */}
+      {/* GALLERY SECTION - Updated with ONLY the 3 user provided photos */}
       <GallerySection />
 
       {/* BOOKING SECTION */}
