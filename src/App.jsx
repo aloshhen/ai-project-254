@@ -262,7 +262,7 @@ const PromoSlider = () => {
   )
 }
 
-// Gallery Component
+// UPDATED Gallery Component with new user photos
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState(null)
 
@@ -285,28 +285,33 @@ const GallerySection = () => {
     },
     {
       id: 4,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325710-4998.jpg?",
+      alt: "Новая работа мастера BAZA"
+    },
+    {
+      id: 5,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-1843.jpg?",
+      alt: "Стильная стрижка в BAZA"
+    },
+    {
+      id: 6,
+      src: "https://oejgkvftpbinliuopipr.supabase.co/storage/v1/object/public/assets/user_347995964/edit-photo-1770325711-3969.jpg?",
+      alt: "Атмосфера барбершопа BAZA"
+    },
+    {
+      id: 7,
       src: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80",
       alt: "Классическая стрижка"
     },
     {
-      id: 5,
+      id: 8,
       src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
       alt: "Барбер в работе"
     },
     {
-      id: 6,
+      id: 9,
       src: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80",
       alt: "Интерьер барбершопа"
-    },
-    {
-      id: 7,
-      src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80",
-      alt: "Уход за бородой"
-    },
-    {
-      id: 8,
-      src: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80",
-      alt: "Бритье опасной бритвой"
     }
   ]
 
@@ -337,7 +342,7 @@ const GallerySection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px]"
         >
           {galleryImages.map((image, index) => (
             <motion.div
@@ -345,7 +350,7 @@ const GallerySection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
-              className={`relative group overflow-hidden rounded-xl cursor-pointer ${image.span || ''} ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}
+              className={`relative group overflow-hidden rounded-xl cursor-pointer ${index === 0 ? 'col-span-2 row-span-2' : ''}`}
               onClick={() => setSelectedImage(image)}
             >
               <img
@@ -365,11 +370,15 @@ const GallerySection = () => {
                   <span className="text-white text-xs font-bold uppercase tracking-wider">Featured</span>
                 </div>
               )}
+              {(index === 3 || index === 4 || index === 5) && (
+                <div className="absolute top-4 right-4 bg-green-600 px-3 py-1 rounded-full">
+                  <span className="text-white text-xs font-bold uppercase tracking-wider">New</span>
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Lightbox */}
         <AnimatePresence>
           {selectedImage && (
             <motion.div
@@ -450,7 +459,7 @@ const ServiceCard = ({ title, price, description, duration, icon, delay }) => {
 // Booking Form Component
 const BookingForm = () => {
   const { isSubmitting, isSuccess, isError, errorMessage, handleSubmit, resetForm } = useFormHandler()
-  const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY' // Replace with your Web3Forms Access Key from https://web3forms.com
+  const ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'
 
   const services = [
     { value: 'haircut', label: 'Мужская стрижка' },
@@ -687,7 +696,6 @@ function App() {
           </button>
         </nav>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -717,7 +725,6 @@ function App() {
 
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden">
-        {/* Background Effects */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(180,83,9,0.15)_0%,_transparent_70%)]" />
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
@@ -765,7 +772,6 @@ function App() {
             </div>
           </motion.div>
 
-          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -909,7 +915,7 @@ function App() {
         </div>
       </section>
 
-      {/* GALLERY SECTION */}
+      {/* GALLERY SECTION - Updated with new photos */}
       <GallerySection />
 
       {/* BOOKING SECTION */}
